@@ -27,6 +27,31 @@ for _, row in df.iterrows():
 
 conn.commit()  # Save changes
 cursor.close()
+# conn.close()
+
+print("✅ Data imported successfully for Blinkit!")
+
+
+cursor = conn.cursor()
+
+# 2️⃣ Load Excel File
+excel_file = "../scrapped_csv/zepto_products.csv"  # Change to your actual file name
+df = pd.read_csv(excel_file)
+
+def clean_price(price):
+    return float(price.replace("₹", "").strip())  # ✅ Removes ₹ and converts to float
+
+df["Price"] = df["Price"].astype(str).apply(clean_price)  # Apply function to price column
+
+# 3️⃣ Insert Data into MySQL
+for _, row in df.iterrows():
+    sql = "INSERT INTO zepto_products (product_name, price, quantity) VALUES (%s, %s, %s)"
+    values = (row["Product Name"], row["Price"], row["quantity"])  # Modify column names based on your Excel file
+    cursor.execute(sql, values)
+
+conn.commit()  # Save changes
+cursor.close()
 conn.close()
 
-print("✅ Data imported successfully!")
+print("✅ Data imported successfully for Zepto!")
+

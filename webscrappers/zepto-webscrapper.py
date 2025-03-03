@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 # URL of the Zepto platform or any page you want to scrape
-url = 'https://www.zepto.com/cn/fruits-vegetables/all/cid/64374cfe-d06f-4a01-898e-c07c46462c36/scid/e78a8422-5f20-4e4b-9a9f-22a0e53962e3'
+url = 'https://www.zepto.com/cn/fruits-vegetables/fruits-vegetables/cid/64374cfe-d06f-4a01-898e-c07c46462c36/scid/e78a8422-5f20-4e4b-9a9f-22a0e53962e3'
 # Send an HTTP GET request to the URL
 response = requests.get(url)
 
@@ -27,7 +27,7 @@ if response.status_code == 200:
             print(link.text.strip())
 
     for link in weights:
-        print(link)
+#         print(link)
         h5_tag = link.find("h5")
         print(h5_tag.text.strip())
 
